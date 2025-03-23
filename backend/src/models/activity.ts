@@ -1,20 +1,5 @@
 import mongoose from 'mongoose';
-
-export type ActivityType = {
-    _id: string;
-    userId: string;
-    name: string;
-    city: string;
-    country: string;
-    description: string;
-    type: string;
-    guestCount: number;
-    facilities: string[];
-    price: number;
-    starRating: number;
-    imageUrls: string[];
-    lastUpdated: Date;
-}
+import { ActivityType } from '../shared/types';
 
 const activitySchema = new mongoose.Schema<ActivityType>({
     userId: { type: String, required: true },

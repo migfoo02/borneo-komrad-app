@@ -28,10 +28,10 @@ test("should allow user to add an activity", async ({ page }) => {
   await page
     .locator('[name="description"]')
     .fill("This is a description for the Test Activity");
-  await page.locator('[name="price"]').fill("100");
+  await page.locator('[name="price"]').fill("50");
   await page.selectOption('select[name="starRating"]', "3");
 
-  await page.getByText("Tours").click();
+  await page.getByText("Cruises").click();
 
   await page.getByLabel("Lunch").check();
   await page.getByLabel("English-speaking staff").check();
@@ -45,4 +45,21 @@ test("should allow user to add an activity", async ({ page }) => {
 
   await page.getByRole("button", { name: "Save" }).click();
   await expect(page.getByText("Activity Saved!")).toBeVisible();
+});
+
+test("should display activities", async ({ page }) => {
+  await page.goto(`${UI_URL}my-activities`);
+
+  await expect(page.getByText("Semporna Tour")).toBeVisible();
+  await expect(page.getByText("Lorem ipsum dolor sit amet")).toBeVisible();
+  await expect(page.getByText("Semporna, Malaysia")).toBeVisible();
+  await expect(page.getByText("Tours")).toBeVisible();
+  await expect(page.getByText("$100")).toBeVisible();
+  await expect(page.getByText("5 guests")).toBeVisible();
+  await expect(page.getByText("5 Star Rating")).toBeVisible();
+
+  await expect(
+    page.getByRole("link", { name: "View Details" }).first()
+  ).toBeVisible();
+  await expect(page.getByRole("link", { name: "Add Activity" })).toBeVisible();
 });

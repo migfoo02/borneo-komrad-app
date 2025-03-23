@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
 import AddActivity from "./pages/AddActivity";
 import { useAppContext } from "./contexts/AppContext";
+import MyActivities from "./pages/MyActivities";
 
 const App = () => {
   const {isLoggedIn} = useAppContext();
@@ -55,6 +56,14 @@ const App = () => {
               element={
                 <Layout>
                   <AddActivity />
+                </Layout>
+              }
+            />
+            <Route
+              path="/my-activities"
+              element={
+                <Layout>
+                  <MyActivities />
                 </Layout>
               }
             />

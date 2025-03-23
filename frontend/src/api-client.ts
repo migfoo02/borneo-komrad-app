@@ -1,5 +1,6 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
+import { ActivityType } from "../../backend/src/shared/types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
@@ -72,6 +73,18 @@ export const addMyActivity = async (activityFormData: FormData) => {
 
   if (!response.ok) {
     throw new Error("Failed to add activity");
+  }
+
+  return response.json();
+};
+
+export const fetchMyActivities = async (): Promise<ActivityType[]> => {
+  const response = await fetch(`${API_BASE_URL}/api/my-activities`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Error fetching activities");
   }
 
   return response.json();

@@ -4,6 +4,8 @@ import TypeSection from "./TypeSection";
 import FacilitiesSection from "./FacilitiesSection";
 import GuestsSection from "./GuestsSection";
 import ImagesSection from "./ImagesSection";
+import { ActivityType } from "../../../../backend/src/shared/types";
+import { useEffect } from "react";
 
 export type ActivityFormData = {
   name: string;
@@ -20,16 +22,24 @@ export type ActivityFormData = {
 };
 
 type Props = {
-    onSave: (ActivityFormData: FormData) => void;
-    isLoading: boolean;
-}
+  activity?: ActivityType;
+  onSave: (ActivityFormData: FormData) => void;
+  isLoading: boolean;
+};
 
-const ManageActivityForm = ({onSave, isLoading}: Props) => {
+const ManageActivityForm = ({ onSave, isLoading, activity }: Props) => {
   const formMethods = useForm<ActivityFormData>();
-  const { handleSubmit } = formMethods;
+  const { handleSubmit, reset } = formMethods;
+
+  useEffect(() => {
+    reset(activity);
+    }, [activity, reset]);
 
   const onSubmit = handleSubmit((formDataJson: ActivityFormData) => {
     const formData = new FormData();
+    if (activity) {
+      formData.append("_id", activity._id);
+    }
     formData.append("name", formDataJson.name);
     formData.append("city", formDataJson.city);
     formData.append("country", formDataJson.country);
@@ -42,6 +52,19 @@ const ManageActivityForm = ({onSave, isLoading}: Props) => {
     formDataJson.facilities.forEach((facility, index) => {
       formData.append(`facilities[${index}]`, facility);
     });
+
+    // formDataJson.facilities.forEach((facility) => {
+    //   formData.append("facilities", facility);
+    // });
+
+    if (formDataJson.imageUrls) {
+        formDataJson.imageUrls.forEach((url, index) => {
+          formData.append(`imageUrls[${index}]`, url);
+        });
+    //   formDataJson.imageUrls.forEach((imageUrl) => {
+    //     formData.append("imageUrls", imageUrl);
+    //   });
+    }
 
     Array.from(formDataJson.imageFiles).forEach((imageFile) => {
       formData.append(`imageFiles`, imageFile);
