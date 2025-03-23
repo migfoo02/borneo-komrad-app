@@ -7,43 +7,59 @@ import {
 import Layout from "./layouts/Layout";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
+import AddActivity from "./pages/AddActivity";
+import { useAppContext } from "./contexts/AppContext";
 
 const App = () => {
+  const {isLoggedIn} = useAppContext();
   return (
     <Router>
       <Routes>
-        <Route 
-          path="/" 
+        <Route
+          path="/"
           element={
             <Layout>
               <p>Home Page</p>
             </Layout>
-          } 
+          }
         />
-        <Route 
-          path="/search" 
+        <Route
+          path="/search"
           element={
             <Layout>
               <p>Search Page</p>
             </Layout>
-          } 
+          }
         />
-        <Route 
-          path="/register" 
+        <Route
+          path="/register"
           element={
             <Layout>
-              <Register/>
+              <Register />
             </Layout>
-          } 
+          }
         />
-        <Route 
-          path="/sign-in" 
+        <Route
+          path="/sign-in"
           element={
             <Layout>
-              <SignIn/>
+              <SignIn />
             </Layout>
-          } 
+          }
         />
+
+        {isLoggedIn && (
+          <>
+            <Route
+              path="/add-activity"
+              element={
+                <Layout>
+                  <AddActivity />
+                </Layout>
+              }
+            />
+          </>
+        )}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>

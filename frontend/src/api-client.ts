@@ -62,3 +62,17 @@ export const signOut = async () => {
     throw new Error("Error signing out");
   }
 }
+
+export const addMyActivity = async (activityFormData: FormData) => {
+  const response = await fetch(`${API_BASE_URL}/api/my-activities`, {
+    method: "POST",
+    credentials: "include",
+    body: activityFormData,
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to add activity");
+  }
+
+  return response.json();
+};
