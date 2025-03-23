@@ -10,6 +10,7 @@ import SignIn from "./pages/SignIn";
 import AddActivity from "./pages/AddActivity";
 import { useAppContext } from "./contexts/AppContext";
 import MyActivities from "./pages/MyActivities";
+import EditActivity from "./pages/EditActivity";
 
 const App = () => {
   const {isLoggedIn} = useAppContext();
@@ -64,6 +65,14 @@ const App = () => {
               element={
                 <Layout>
                   <MyActivities />
+                </Layout>
+              }
+            />
+            <Route
+              path="/edit-activity/:activityId"
+              element={
+                <Layout>
+                  <EditActivity />
                 </Layout>
               }
             />

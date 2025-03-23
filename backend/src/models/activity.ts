@@ -9,10 +9,10 @@ const activitySchema = new mongoose.Schema<ActivityType>({
     description: { type: String, required: true },
     type: { type: String, required: true },
     guestCount: { type: Number, required: true },
-    facilities: [{ type: [String], required: true }],
+    facilities: { type: [String], required: true },
     price: { type: Number, required: true },
     starRating: { type: Number, required: true, min:1, max:5 },
-    imageUrls: [{ type: [String], required: true }],
+    imageUrls: { type: [String], required: true },
     lastUpdated: { type: Date, required: true },
 });
 

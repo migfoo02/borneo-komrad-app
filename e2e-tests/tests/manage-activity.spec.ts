@@ -63,3 +63,23 @@ test("should display activities", async ({ page }) => {
   ).toBeVisible();
   await expect(page.getByRole("link", { name: "Add Activity" })).toBeVisible();
 });
+
+test("should edit activity", async ({ page }) => {
+  await page.goto(`${UI_URL}my-activities`);
+
+  await page.getByRole("link", { name: "View Details" }).first().click();
+
+  await page.waitForSelector('[name="name"]', { state: "attached" });
+  await expect(page.locator('[name="name"]')).toHaveValue("Semporna Tour");
+  await page.locator('[name="name"]').fill("Semporna Tour UPDATED");
+  await page.getByRole("button", { name: "Save" }).click();
+  await expect(page.getByText("Activity Saved!")).toBeVisible();
+
+  await page.reload();
+
+  await expect(page.locator('[name="name"]')).toHaveValue(
+    "Semporna Tour UPDATED"
+  );
+  await page.locator('[name="name"]').fill("Semporna Tour");
+  await page.getByRole("button", { name: "Save" }).click();
+});

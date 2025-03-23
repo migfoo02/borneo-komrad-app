@@ -31,14 +31,15 @@ const ManageActivityForm = ({ onSave, isLoading, activity }: Props) => {
   const formMethods = useForm<ActivityFormData>();
   const { handleSubmit, reset } = formMethods;
 
+  // whenever activity updates, reset form
   useEffect(() => {
     reset(activity);
-    }, [activity, reset]);
+  }, [activity, reset]);
 
   const onSubmit = handleSubmit((formDataJson: ActivityFormData) => {
     const formData = new FormData();
     if (activity) {
-      formData.append("_id", activity._id);
+      formData.append("activityId", activity._id);
     }
     formData.append("name", formDataJson.name);
     formData.append("city", formDataJson.city);
@@ -53,17 +54,12 @@ const ManageActivityForm = ({ onSave, isLoading, activity }: Props) => {
       formData.append(`facilities[${index}]`, facility);
     });
 
-    // formDataJson.facilities.forEach((facility) => {
-    //   formData.append("facilities", facility);
-    // });
-
+    // [image1.jpg, image2.jpg]
+    // imageUrls = [image1.jpg]
     if (formDataJson.imageUrls) {
-        formDataJson.imageUrls.forEach((url, index) => {
-          formData.append(`imageUrls[${index}]`, url);
-        });
-    //   formDataJson.imageUrls.forEach((imageUrl) => {
-    //     formData.append("imageUrls", imageUrl);
-    //   });
+      formDataJson.imageUrls.forEach((url, index) => {
+        formData.append(`imageUrls[${index}]`, url);
+      });
     }
 
     Array.from(formDataJson.imageFiles).forEach((imageFile) => {
