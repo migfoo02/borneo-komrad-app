@@ -11,9 +11,10 @@ import AddActivity from "./pages/AddActivity";
 import { useAppContext } from "./contexts/AppContext";
 import MyActivities from "./pages/MyActivities";
 import EditActivity from "./pages/EditActivity";
+import Search from "./pages/Search";
 
 const App = () => {
-  const {isLoggedIn} = useAppContext();
+  const { isLoggedIn } = useAppContext();
   return (
     <Router>
       <Routes>
@@ -29,7 +30,7 @@ const App = () => {
           path="/search"
           element={
             <Layout>
-              <p>Search Page</p>
+              <Search />
             </Layout>
           }
         />

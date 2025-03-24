@@ -6,6 +6,7 @@ import "dotenv/config";
 import mongoose, { connection } from "mongoose";
 import userRoutes from "./routes/users";
 import authRoutes from "./routes/auth";
+import activityRoutes from "./routes/activities";
 import myActivityRoutes from "./routes/my-activities";
 import cookieParser from "cookie-parser";
 import path from "path";
@@ -55,6 +56,7 @@ app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/my-activities", myActivityRoutes);
+app.use("/api/activities", activityRoutes);
 
 app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));

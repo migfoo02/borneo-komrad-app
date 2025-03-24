@@ -13,3 +13,12 @@ export type ActivityType = {
     imageUrls: string[];
     lastUpdated: Date;
 }
+
+export type ActivitySearchResponse = {
+    data: ActivityType[];
+    pagination: {
+      total: number;
+      page: number;
+      pages: number;
+    };
+  };
