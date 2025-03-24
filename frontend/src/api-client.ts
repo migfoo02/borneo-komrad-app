@@ -170,3 +170,12 @@ export const searchActivities = async (
 
   return response.json();
 };
+
+export const fetchActivityById = async (activityId: string): Promise<ActivityType> => {
+  const response = await fetch(`${API_BASE_URL}/api/activities/${activityId}`);
+  if (!response.ok) {
+    throw new Error("Error fetching activities");
+  }
+
+  return response.json();
+};

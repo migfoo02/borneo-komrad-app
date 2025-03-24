@@ -26,7 +26,7 @@ const SearchResultsCard = ({ activity }: Props) => {
             <span className="ml-2 text-sm">{activity.type}</span>
           </div>
           <Link
-            to={`/detail/${activity._id}`}
+            to={`/details/${activity._id}`}
             className="text-2xl font-bold cursor-pointer"
           >
             {activity.name}
@@ -52,7 +52,7 @@ const SearchResultsCard = ({ activity }: Props) => {
           <div className="flex flex-col items-end gap-1">
             <span className="font-bold">${activity.price} per person</span>
             <Link
-              to={`/detail/${activity._id}`}
+              to={`/details/${activity._id}`}
               className="bg-blue-600 text-white h-full p-2 font-bold text-xl max-w-fit hover:bg-blue-500"
             >
               View More

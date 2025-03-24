@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import Activity from "../models/activity";
 import { ActivitySearchResponse } from "../shared/types";
+import { param, validationResult } from "express-validator";
 
 const router = express.Router();
 
@@ -100,3 +101,24 @@ const constructSearchQuery = (queryParams: any) => {
 };
 
 export default router;
+
+router.get(
+  "/:id",
+  [param("id").notEmpty().withMessage("Activity ID is required")],
+  async (req: Request, res: Response): Promise<any> => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const id = req.params.id.toString();
+
+    try {
+      const activity = await Activity.findById(id);
+      res.json(activity);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Error fetching activity" });
+    }
+  }
+);

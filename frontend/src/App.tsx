@@ -12,6 +12,7 @@ import { useAppContext } from "./contexts/AppContext";
 import MyActivities from "./pages/MyActivities";
 import EditActivity from "./pages/EditActivity";
 import Search from "./pages/Search";
+import Details from "./pages/Details";
 
 const App = () => {
   const { isLoggedIn } = useAppContext();
@@ -31,6 +32,14 @@ const App = () => {
           element={
             <Layout>
               <Search />
+            </Layout>
+          }
+        />
+        <Route
+          path="/details/:activityId"
+          element={
+            <Layout>
+              <Details />
             </Layout>
           }
         />

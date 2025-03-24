@@ -27,3 +27,14 @@ test("should show activity search results", async ({ page }) => {
   await expect(page.getByText("Activities found in Semporna")).toBeVisible();
   await expect(page.getByText("Semporna Tour")).toBeVisible();
 });
+
+test("should show activity detail", async ({ page }) => {
+    await page.goto(UI_URL);
+  
+    await page.getByPlaceholder("Where are you going?").fill("Semporna");
+    await page.getByRole("button", { name: "Search" }).click();
+  
+    await page.getByText("Semporna Tour").click();
+    await expect(page).toHaveURL(/details/);
+    await expect(page.getByRole("button", { name: "Book now" })).toBeVisible();
+  });
